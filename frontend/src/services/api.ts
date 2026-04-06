@@ -46,3 +46,37 @@ export const createBooking = async (bookingData: BookingData) => {
   }
   return response.json();
 };
+
+export const fetchMyBookings = async () => {
+  const token = localStorage.getItem("access_token");
+  const response = await fetch(`${BASE_URL}/bookings/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status === 401) {
+    localStorage.removeItem("access_token");
+    window.location.href = "/login";
+    throw new Error("Sesi habis, silakan login kembali");
+  }
+
+  if (!response.ok) throw new Error("Gagal mengambil riwayat pesanan");
+  return response.json();
+};
+
+export const deleteBooking = async (id: number) => {
+  const token = localStorage.getItem("access_token");
+  const response = await fetch(`${BASE_URL}/bookings/${id}/`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Gagal membatalkan pesanan");
+  }
+
+  return true;
+};

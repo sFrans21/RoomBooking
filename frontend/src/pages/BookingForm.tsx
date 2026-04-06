@@ -1,3 +1,4 @@
+// src/pages/BookingForm.tsx
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { createBooking, type BookingData } from "../services/api";
@@ -23,7 +24,13 @@ export default function BookingForm() {
       alert("Booking Berhasil!");
       navigate("/");
     } catch (err: unknown) {
-      setError(err as Record<string, string[]>);
+      const errorData = err as Record<string, string[]>;
+
+      if (errorData.non_field_errors) {
+        alert("Gagal: " + errorData.non_field_errors[0]);
+      } else {
+        setError(errorData);
+      }
     }
   };
 
@@ -59,7 +66,6 @@ export default function BookingForm() {
             {Object.keys(error).map((key) => (
               <p key={key}>
                 <span className="font-bold capitalize">{key}:</span>{" "}
-                {/* Cek apakah error[key] itu Array atau bukan */}
                 {Array.isArray(error[key])
                   ? error[key].join(", ")
                   : String(error[key])}
