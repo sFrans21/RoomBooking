@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { createBooking, type BookingPayload } from "../services/api";
+import { createBooking, type BookingData } from "../services/api";
 
 export default function BookingForm() {
   const { roomId } = useParams();
@@ -14,7 +14,7 @@ export default function BookingForm() {
     setError(null);
 
     try {
-      const payload: BookingPayload = {
+      const payload: BookingData = {
         room: parseInt(roomId!),
         start_time: startTime,
         end_time: endTime,

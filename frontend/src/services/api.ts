@@ -1,6 +1,11 @@
 const BASE_URL = "http://127.0.0.1:8000/api";
 
-export interface BookingPayload {
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface BookingData {
   room: number;
   start_time: string;
   end_time: string;
@@ -12,11 +17,25 @@ export const fetchRooms = async () => {
   return response.json();
 };
 
-export const createBooking = async (bookingData: BookingPayload) => {
+export const loginUser = async (credentials: LoginCredentials) => {
+  const response = await fetch(`${BASE_URL}/login/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+  if (!response.ok) throw new Error("Username atau Password salah");
+  const data = await response.json();
+  localStorage.setItem("access_token", data.access);
+  return data;
+};
+
+export const createBooking = async (bookingData: BookingData) => {
+  const token = localStorage.getItem("access_token");
   const response = await fetch(`${BASE_URL}/bookings/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(bookingData),
   });
