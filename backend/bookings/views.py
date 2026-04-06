@@ -1,7 +1,8 @@
+from django.contrib.auth.models import User # TAMBAHKAN INI
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny 
 from .models import Room, Booking
-from .serializers import RoomSerializer, BookingSerializer
+from .serializers import RoomSerializer, BookingSerializer, UserRegisterSerializer
 from .permissions import IsOwner
 
 class RoomListCreateView(generics.ListCreateAPIView):
@@ -26,3 +27,9 @@ class BookingDetailDestroyView(generics.RetrieveDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated, IsOwner]
+    
+    
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = [AllowAny] # Siapa saja boleh daftar
+    serializer_class = UserRegisterSerializer

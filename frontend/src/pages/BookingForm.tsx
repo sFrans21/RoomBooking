@@ -27,7 +27,7 @@ export default function BookingForm() {
       const errorData = err as Record<string, string[]>;
 
       if (errorData.non_field_errors) {
-        alert("Gagal: " + errorData.non_field_errors[0]);
+        alert("Pemesanan Gagal: " + errorData.non_field_errors[0]);
       } else {
         setError(errorData);
       }

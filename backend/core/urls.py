@@ -4,10 +4,12 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from bookings.views import RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/', include('bookings.urls')), # Cukup satu kali saja
+    path('api/', include('bookings.urls')), 
+    path('api/register/', RegisterView.as_view(), name='register'),
 ]

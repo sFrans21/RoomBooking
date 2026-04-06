@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User # TAMBAHKAN INI
 from rest_framework import serializers
 from django.utils import timezone
 from .models import Room, Booking
@@ -32,3 +33,19 @@ class BookingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Ruangan sudah dipesan pada rentang waktu tersebut.")
 
         return data
+    
+class UserRegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email']
+
+    def create(self, validated_data):
+        # Penting: Gunakan create_user agar password di-hash!
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data.get('email', ''),
+            password=validated_data['password']
+        )
+        return user

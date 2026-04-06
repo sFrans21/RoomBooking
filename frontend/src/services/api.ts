@@ -1,5 +1,11 @@
 const BASE_URL = "http://127.0.0.1:8000/api";
 
+export interface RegisterCredentials {
+  username: string;
+  password: string;
+  email?: string;
+}
+
 export interface LoginCredentials {
   username: string;
   password: string;
@@ -79,4 +85,23 @@ export const deleteBooking = async (id: number) => {
   }
 
   return true;
+};
+
+export interface RegisterData {
+  username: string;
+  password?: string;
+}
+
+export const registerUser = async (userData: RegisterCredentials) => {
+  const response = await fetch(`${BASE_URL}/register/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw errorData;
+  }
+  return response.json();
 };

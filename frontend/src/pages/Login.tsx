@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { loginUser } from "../services/api";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await loginUser({ username, password });
       alert("Login Berhasil!");
-      navigate("/");
+      window.location.href = "/";
     } catch {
       alert("Gagal Login. Cek kembali akun Anda.");
     }
@@ -42,6 +41,15 @@ export default function Login() {
           Login
         </button>
       </form>
+      <p className="mt-6 text-center text-sm text-gray-600">
+        Belum punya akun?{" "}
+        <Link
+          to="/register"
+          className="text-blue-600 font-bold hover:underline transition-all"
+        >
+          Daftar di sini
+        </Link>
+      </p>
     </div>
   );
 }
