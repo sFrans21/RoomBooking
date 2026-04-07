@@ -56,7 +56,6 @@ function App() {
         <main className="container mx-auto py-8 px-4">
           <Routes>
             {isLoggedIn ? (
-              // Rute untuk user yang sudah Login
               <>
                 <Route path="/" element={<RoomList />} />
                 <Route path="/my-bookings" element={<MyBookings />} />
@@ -65,7 +64,6 @@ function App() {
                 <Route path="/login" element={<RoomList />} />
               </>
             ) : (
-              // Rute untuk Guest (Hanya Login & Register)
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

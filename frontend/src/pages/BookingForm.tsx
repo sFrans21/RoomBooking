@@ -1,4 +1,3 @@
-// src/pages/BookingForm.tsx
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { createBooking, type BookingData } from "../services/api";

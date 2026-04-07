@@ -1,0 +1,158 @@
+{
+  "info": {
+    "_postman_id": "24b44842-0db4-4dde-a023-2e31fa958487",
+    "name": "Samuel - Room Booking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46759580"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "if (response.access) {\r",
+                  "    pm.environment.set(\"jwt_token\", response.access);\r",
+                  "    console.log(\"Token otomatis tersimpan!\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"akua1a2b\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/login/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "login",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "Get All Rooms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/rooms/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "rooms",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create Booking",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"room\": 6,\r\n    \"start_time\": \"2026-04-07T14:00:00Z\",\r\n    \"end_time\": \"2026-04-07T16:00:00Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/bookings/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "bookings",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter By Date",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bookings/?date=2026-04-07",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "bookings",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-04-07"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

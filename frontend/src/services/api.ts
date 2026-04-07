@@ -53,9 +53,13 @@ export const createBooking = async (bookingData: BookingData) => {
   return response.json();
 };
 
-export const fetchMyBookings = async () => {
+export const fetchMyBookings = async (date?: string) => {
   const token = localStorage.getItem("access_token");
-  const response = await fetch(`${BASE_URL}/bookings/`, {
+  let url = `${BASE_URL}/bookings/`;
+  if (date) {
+    url += `?date=${date}`;
+  }
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -67,7 +71,7 @@ export const fetchMyBookings = async () => {
     throw new Error("Sesi habis, silakan login kembali");
   }
 
-  if (!response.ok) throw new Error("Gagal mengambil riwayat pesanan");
+  if (!response.ok) throw new Error("Gagal mengambil data");
   return response.json();
 };
 

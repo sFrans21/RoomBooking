@@ -1,4 +1,3 @@
-# bookings/models.py
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -14,7 +13,6 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='bookings')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    # Pastikan baris ini ada:
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
