@@ -4,7 +4,7 @@ Sistem manajemen pemesanan ruangan berbasis web yang dibangun menggunakan Django
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend:** Python 3.12, Django 5.x, Django Rest Framework (DRF), SimpleJWT
 - **Frontend:** React 18 (Vite), TypeScript, Tailwind CSS v4
@@ -12,7 +12,7 @@ Sistem manajemen pemesanan ruangan berbasis web yang dibangun menggunakan Django
 
 ---
 
-## 🚀 Persiapan Instalasi
+## Persiapan Instalasi
 
 Pastikan kamu sudah menginstal **Python**, **Node.js**, dan **MySQL Server** di mesin lokalmu.
 
@@ -106,7 +106,7 @@ Aplikasi akan berjalan di `http://localhost:5173`.
 
 ---
 
-## 📂 Struktur API Utama
+## Struktur API Utama
 
 | Method   | Endpoint              | Deskripsi                            | Auth |
 | -------- | --------------------- | ------------------------------------ | ---- |
